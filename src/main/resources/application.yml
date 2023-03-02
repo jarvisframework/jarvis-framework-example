@@ -1,0 +1,60 @@
+server:
+  port: 8080
+  undertow:
+    max-http-post-size: 0
+    threads:
+      io: 4
+      worker: 32
+    buffer-size: 1024
+    direct-buffers: true
+
+spring:
+  profiles:
+    include: upgrade
+  datasource:
+    url: jdbc:mysql://123.249.94.36:3306/jarvis?characterEncoding=utf8&rewriteBatchedStatements=true&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456!
+    druid:
+      initial-size: 5
+      max-active: 20
+      validation-query: select 1
+  mvc:
+    format:
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
+  session:
+    timeout: 1800
+  security:
+    permit-urls:
+      - /permit/**
+      - /doc.html
+    deny-urls:
+      - /deny/**
+    authority-urls:
+      - url: /city/**
+        authorities:
+          city,superadmin
+
+snowflake:
+  worker-id: 1
+
+mybatis:
+  mapper-locations:
+    - classpath*:/mapper/*Mapper.xml
+  configuration:
+    jdbc-type-for-null: 'NULL'
+    use-actual-param-name: true
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+
+# 存储配置，type为local为本地磁盘、minio为Minio
+jarvis:
+  bizlog:
+    level: query
+  fs:
+    type: local
+    endpoint: http://127.0.0.1:9200
+    access-key: minio
+    secret-key: "00000000"
