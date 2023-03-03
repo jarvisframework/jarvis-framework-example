@@ -38,6 +38,8 @@ spring:
       - url: /city/**
         authorities:
           city,superadmin
+    validate-code:
+      enabled: true
 
 snowflake:
   worker-id: 1
