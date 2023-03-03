@@ -30,6 +30,8 @@ spring:
     permit-urls:
       - /permit/**
       - /doc.html
+      - /webjars/**
+      - /agv/**
     deny-urls:
       - /deny/**
     authority-urls:
